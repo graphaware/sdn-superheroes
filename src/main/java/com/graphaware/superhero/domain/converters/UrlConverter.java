@@ -14,18 +14,30 @@
  * limitations under the License.
  */
 
-package com.graphaware.superhero.test.domain;
+package com.graphaware.superhero.domain.converters;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.neo4j.ogm.typeconversion.AttributeConverter;
 
 /**
  * @author Luanne Misquitta
  */
-public class CharacterTest {
+public class UrlConverter implements AttributeConverter<URL, String> {
 
-	/*
-	Save a character
-	Save a team
-	Save a movie
-	Save a game
-	Save a comic
-	 */
+	@Override
+	public String toGraphProperty(URL value) {
+		return value == null? null : value.toString();
+	}
+
+	@Override
+	public URL toEntityAttribute(String value) {
+		try {
+			return new URL(value);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

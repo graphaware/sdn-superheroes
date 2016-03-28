@@ -16,11 +16,29 @@
 
 package com.graphaware.superhero.repository;
 
+import java.util.List;
+
+import com.graphaware.superhero.domain.Character;
+import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 /**
  * @author Luanne Misquitta
  */
 public interface CharacterRepository extends GraphRepository<Character>{
+
+	List<Character> findByNameLike(String keyword);
+
+	@Query(" MATCH (c:Character) WHERE ID(c)={characterId} " +
+			"OPTIONAL MATCH (c)-[:ALLY_OF|ENEMY_OF]-(other) " +
+			"WITH c, collect(other) as others " +
+			"OPTIONAL MATCH (c)-[:MEMBER_OF|FEATURED_IN]->()<-[:MEMBER_OF|FEATURED_IN]-(teamMember) " +
+			"WITH c, others + collect(teamMember) as others " +
+			"OPTIONAL MATCH (c)<-[:STARS]-()-[:STARS]->(actors) " +
+			"WITH others + collect(actors) as others " +
+			"UNWIND others as related " +
+			"WITH count(*) as count, related " +
+			"RETURN related ORDER BY count DESC")
+	List<Character> findRelatedCharacters(Long id);
 
 }
