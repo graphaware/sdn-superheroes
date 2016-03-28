@@ -57,11 +57,11 @@ public class Character {
 	public Character() {
 	}
 
-	public Character(String name) {
+	Character(String name) {
 		this.name = name;
 	}
 
-	public Character(String name, List<String> alias, String realName) {
+	Character(String name, List<String> alias, String realName) {
 		this.name = name;
 		this.alias = alias;
 		this.realName = realName;

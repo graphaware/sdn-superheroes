@@ -23,6 +23,6 @@ import org.springframework.data.neo4j.repository.support.GraphRepositoryFactory;
 /**
  * @author Luanne Misquitta
  */
-public interface HeroRepository extends GraphRepository<Hero> {
+public interface HeroRepository extends CharacterRepository<Hero> {
 
 }

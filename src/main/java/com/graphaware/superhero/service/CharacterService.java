@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CharacterService {
 
-	@Autowired CharacterRepository characterRepository;
+	@Autowired CharacterRepository<Character> characterRepository;
 
 	public List<Character> searchByKeyword(String keyword) {
 		return characterRepository.findByNameLike("*" + keyword + "*");

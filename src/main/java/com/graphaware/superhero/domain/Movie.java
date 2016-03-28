@@ -19,9 +19,11 @@ package com.graphaware.superhero.domain;
 import java.net.URL;
 import java.util.Set;
 
+import com.graphaware.superhero.domain.converters.UrlConverter;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 /**
  * @author Luanne Misquitta
@@ -33,6 +35,7 @@ public class Movie {
 	private String title;
 	private int year;
 	private Rating rating;
+	@Convert(UrlConverter.class)
 	private URL imdbUrl;
 
 	@Relationship(type = "STARS")

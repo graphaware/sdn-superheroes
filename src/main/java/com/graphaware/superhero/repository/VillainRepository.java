@@ -22,6 +22,6 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 /**
  * @author Luanne Misquitta
  */
-public interface VillainRepository extends GraphRepository<Villain>{
+public interface VillainRepository extends CharacterRepository<Villain>{
 
 }

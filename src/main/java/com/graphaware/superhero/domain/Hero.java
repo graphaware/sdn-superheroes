@@ -24,4 +24,10 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @NodeEntity(label = "Hero")
 public class Hero extends Character {
 
+	public Hero() {
+	}
+
+	public Hero(String name) {
+		super(name);
+	}
 }

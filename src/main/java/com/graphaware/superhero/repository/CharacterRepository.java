@@ -25,9 +25,9 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 /**
  * @author Luanne Misquitta
  */
-public interface CharacterRepository extends GraphRepository<Character>{
+public interface CharacterRepository<T extends Character> extends GraphRepository<T> {
 
-	List<Character> findByNameLike(String keyword);
+	List<T> findByNameLike(String keyword);
 
 	@Query(" MATCH (c:Character) WHERE ID(c)={characterId} " +
 			"OPTIONAL MATCH (c)-[:ALLY_OF|ENEMY_OF]-(other) " +

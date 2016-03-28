@@ -25,7 +25,11 @@ import java.util.List;
 import java.util.Set;
 
 import com.graphaware.superhero.domain.Character;
+import com.graphaware.superhero.domain.Hero;
+import com.graphaware.superhero.domain.Villain;
 import com.graphaware.superhero.repository.CharacterRepository;
+import com.graphaware.superhero.repository.HeroRepository;
+import com.graphaware.superhero.repository.VillainRepository;
 import com.graphaware.superhero.test.context.TestContext;
 import org.junit.After;
 import org.junit.Test;
@@ -45,6 +49,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class CharacterIntegrationTest {
 
 	@Autowired CharacterRepository characterRepository;
+	@Autowired VillainRepository villainRepository;
+	@Autowired HeroRepository heroRepository;
 	@Autowired Session session;
 
 
@@ -64,14 +70,17 @@ public class CharacterIntegrationTest {
 
 	@Test
 	public void shouldBeAbleToSearchForCharacters() {
-		Character superman = new Character("Superman");
-		characterRepository.save(superman);
+		Hero superman = new Hero("Superman");
+		heroRepository.save(superman);
 
-		Character batman = new Character("Batman");
-		characterRepository.save(batman);
+		Hero batman = new Hero("Batman");
+		heroRepository.save(batman);
 
-		Character robin = new Character("Robin");
-		characterRepository.save(robin);
+		Villain joker = new Villain("Joker");
+		villainRepository.save(joker);
+
+		Villain blackManta = new Villain("Black Manta");
+		villainRepository.save(blackManta);
 
 		session.clear();
 
@@ -82,16 +91,36 @@ public class CharacterIntegrationTest {
 
 		results = characterRepository.findByNameLike("*man*");
 		assertNotNull(results);
-		assertEquals(2, results.size());
+		assertEquals(3, results.size());
 		Set<String> resultNames = new HashSet<>();
-		resultNames.add(results.get(0).getName());
-		resultNames.add(results.get(1).getName());
+		for (Character character : results) {
+			resultNames.add(character.getName());
+		}
 		assertTrue(resultNames.contains(superman.getName()));
 		assertTrue(resultNames.contains(batman.getName()));
+		assertTrue(resultNames.contains(blackManta.getName()));
 
 		results = characterRepository.findByNameLike("*cat*");
 		assertNotNull(results);
 		assertEquals(0, results.size());
+
+		//Search for superheroes
+		List<Hero> heroes = heroRepository.findByNameLike("*man*");
+		assertNotNull(heroes);
+		assertEquals(2, heroes.size());
+		resultNames.clear();
+		for (Character character : heroes) {
+			resultNames.add(character.getName());
+		}
+		assertTrue(resultNames.contains(superman.getName()));
+		assertTrue(resultNames.contains(batman.getName()));
+
+		//Search for villains
+		List<Villain> villains = villainRepository.findByNameLike("*man*");
+		assertNotNull(results);
+		assertEquals(1, villains.size());
+		assertEquals(blackManta.getName(),villains.get(0).getName());
 	}
+
 
 }
