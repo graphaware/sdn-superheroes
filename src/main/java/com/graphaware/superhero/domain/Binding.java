@@ -22,5 +22,6 @@ package com.graphaware.superhero.domain;
 public enum Binding {
 	SOFT,
 	LEATHER,
-	CLOTH
+	CLOTH,
+	HARD
 }

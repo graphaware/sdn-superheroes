@@ -27,7 +27,6 @@ import org.neo4j.ogm.annotation.Relationship;
  */
 @NodeEntity(label = "Game")
 public class Game {
-
 	private Long id;
 	private String title;
 	private int year;
@@ -39,5 +38,59 @@ public class Game {
 	private Set<Character> characters = new HashSet<>();
 
 	public Game() {
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public Rating getRating() {
+		return rating;
+	}
+
+	public void setRating(Rating rating) {
+		this.rating = rating;
+	}
+
+	public Set<Platform> getPlatforms() {
+		return platforms;
+	}
+
+	public void setPlatforms(Set<Platform> platforms) {
+		this.platforms = platforms;
+	}
+
+	@Relationship(type = "FEATURED_IN", direction = Relationship.INCOMING)
+	public Set<Character> getCharacters() {
+		return characters;
+	}
+
+	@Relationship(type = "FEATURED_IN", direction = Relationship.INCOMING)
+	public void setCharacters(Set<Character> characters) {
+		this.characters = characters;
 	}
 }

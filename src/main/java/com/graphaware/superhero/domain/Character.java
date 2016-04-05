@@ -21,6 +21,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.voodoodyne.jackson.jsog.JSOGGenerator;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -28,31 +31,33 @@ import org.neo4j.ogm.annotation.Relationship;
 /**
  * @author Luanne Misquitta
  */
+@JsonIdentityInfo(generator = JSOGGenerator.class)
 @NodeEntity(label = "Character")
 public class Character {
 
-	@GraphId private Long id;
+	@JsonProperty("id")
+	@GraphId  Long id;
 	private String name;
-	private List<String> alias;
+	private String alias;
 	private String realName;
 
 	@Relationship(type = "ALLY_OF", direction = Relationship.UNDIRECTED)
-	private Set<Character> allies = new HashSet<>();
+	Set<Character> allies = new HashSet<>();
 
 	@Relationship(type = "ENEMY_OF", direction = Relationship.UNDIRECTED)
-	private Set<Character> enemies = new HashSet<>();
+	Set<Character> enemies = new HashSet<>();
 
 	@Relationship(type = "FEATURED_IN")
-	private Set<Game> gamesFeaturedIn = new HashSet<>();
+	Set<Game> gamesFeaturedIn = new HashSet<>();
 
 	@Relationship(type = "FEATURED_IN")
-	private Set<Comic> comicsFeaturedIn = new HashSet<>();
+	Set<Comic> comicsFeaturedIn = new HashSet<>();
 
 	@Relationship(type = "STARS", direction = Relationship.INCOMING)
-	private Set<Role> roles = new HashSet<>();
+	Set<Role> roles = new HashSet<>();
 
 	@Relationship(type = "MEMBER_OF")
-	private Set<Team> teams = new HashSet<>();
+	Set<Team> teams = new HashSet<>();
 
 	public Character() {
 	}
@@ -61,21 +66,91 @@ public class Character {
 		this.name = name;
 	}
 
-	Character(String name, List<String> alias, String realName) {
-		this.name = name;
-		this.alias = alias;
-		this.realName = realName;
-	}
-
 	public String getName() {
 		return name;
 	}
 
-	public List<String> getAlias() {
+	public String getAlias() {
 		return alias;
 	}
 
 	public String getRealName() {
 		return realName;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	@Relationship(type = "ALLY_OF", direction = Relationship.UNDIRECTED)
+	public Set<Character> getAllies() {
+		return allies;
+	}
+
+	@Relationship(type = "ENEMY_OF", direction = Relationship.UNDIRECTED)
+	public Set<Character> getEnemies() {
+		return enemies;
+	}
+
+	@Relationship(type = "FEATURED_IN")
+	public Set<Game> getGamesFeaturedIn() {
+		return gamesFeaturedIn;
+	}
+
+	@Relationship(type = "FEATURED_IN")
+	public Set<Comic> getComicsFeaturedIn() {
+		return comicsFeaturedIn;
+	}
+
+	@Relationship(type = "STARS", direction = Relationship.INCOMING)
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	@Relationship(type = "MEMBER_OF")
+	public Set<Team> getTeams() {
+		return teams;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	@Relationship(type = "ALLY_OF", direction = Relationship.UNDIRECTED)
+	public void setAllies(Set<Character> allies) {
+		this.allies = allies;
+	}
+
+	@Relationship(type = "ENEMY_OF", direction = Relationship.UNDIRECTED)
+	public void setEnemies(Set<Character> enemies) {
+		this.enemies = enemies;
+	}
+
+	@Relationship(type = "FEATURED_IN")
+	public void setGamesFeaturedIn(Set<Game> gamesFeaturedIn) {
+		this.gamesFeaturedIn = gamesFeaturedIn;
+	}
+
+	@Relationship(type = "FEATURED_IN")
+	public void setComicsFeaturedIn(Set<Comic> comicsFeaturedIn) {
+		this.comicsFeaturedIn = comicsFeaturedIn;
+	}
+
+	@Relationship(type = "STARS", direction = Relationship.INCOMING)
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	@Relationship(type = "MEMBER_OF")
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
 	}
 }

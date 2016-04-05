@@ -41,6 +41,50 @@ public class Movie {
 	@Relationship(type = "STARS")
 	private Set<Role> stars;
 
+	public Long getId() {
+		return id;
+	}
 
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public Rating getRating() {
+		return rating;
+	}
+
+	public void setRating(Rating rating) {
+		this.rating = rating;
+	}
+
+	public URL getImdbUrl() {
+		return imdbUrl;
+	}
+
+	public void setImdbUrl(URL imdbUrl) {
+		this.imdbUrl = imdbUrl;
+	}
+
+	@Relationship(type = "STARS")
+	public Set<Role> getStars() {
+		return stars;
+	}
+
+	@Relationship(type = "STARS")
+	public void setStars(Set<Role> stars) {
+		this.stars = stars;
+	}
 }

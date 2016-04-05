@@ -36,5 +36,35 @@ public class Team {
 	private Set<Character> members = new HashSet<>();
 	public Team() {
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getOperationsBase() {
+		return operationsBase;
+	}
+
+	public void setOperationsBase(String operationsBase) {
+		this.operationsBase = operationsBase;
+	}
+
+	@Relationship(type = "MEMBER_OF", direction = "INCOMING")
+	public Set<Character> getMembers() {
+		return members;
+	}
+
+	@Relationship(type = "MEMBER_OF", direction = "INCOMING")
+	public void setMembers(Set<Character> members) {
+		this.members = members;
+	}
 }
 

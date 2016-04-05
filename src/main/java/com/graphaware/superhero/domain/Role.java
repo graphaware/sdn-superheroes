@@ -16,16 +16,24 @@
 
 package com.graphaware.superhero.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.voodoodyne.jackson.jsog.JSOGGenerator;
 import org.neo4j.ogm.annotation.EndNode;
-import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
 
 /**
  * @author Luanne Misquitta
  */
+@JsonIdentityInfo(generator = JSOGGenerator.class)
 @RelationshipEntity(type = "STARS")
 public class Role {
+
+	@JsonProperty("id")
+	@GraphId
+	private Long id;
 
 	@StartNode
 	private Movie movie;
@@ -35,6 +43,31 @@ public class Role {
 
 	private String actor;
 
+	public Long getId() {
+		return id;
+	}
 
+	public Movie getMovie() {
+		return movie;
+	}
 
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+
+	public Character getCharacter() {
+		return character;
+	}
+
+	public void setCharacter(Character character) {
+		this.character = character;
+	}
+
+	public String getActor() {
+		return actor;
+	}
+
+	public void setActor(String actor) {
+		this.actor = actor;
+	}
 }

@@ -19,7 +19,11 @@ package com.graphaware.superhero.service;
 import java.util.List;
 
 import com.graphaware.superhero.domain.Character;
+import com.graphaware.superhero.domain.Hero;
+import com.graphaware.superhero.domain.Villain;
 import com.graphaware.superhero.repository.CharacterRepository;
+import com.graphaware.superhero.repository.HeroRepository;
+import com.graphaware.superhero.repository.VillainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +34,21 @@ import org.springframework.stereotype.Service;
 public class CharacterService {
 
 	@Autowired CharacterRepository<Character> characterRepository;
+	@Autowired HeroRepository heroRepository;
+	@Autowired VillainRepository villainRepository;
 
 	public List<Character> searchByKeyword(String keyword) {
-		return characterRepository.findByNameLike("*" + keyword + "*");
+		List<Character> characters = characterRepository.findByNameLike("*" + keyword + "*");
+		return characters;
 	}
 
+	public List<Hero> searchHeroesByKeyword(String keyword) {
+		return heroRepository.findByNameLike("*" + keyword + "*");
+	}
+
+	public List<Villain> searchVillainsByKeyword(String keyword) {
+		return villainRepository.findByNameLike("*" + keyword + "*");
+	}
 	public Character getById(Long id, int depth) {
 		return characterRepository.findOne(id, depth);
 	}

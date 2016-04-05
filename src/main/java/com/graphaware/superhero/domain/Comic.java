@@ -41,4 +41,66 @@ public class Comic {
 
 	@Relationship(type = "FEATURED_IN", direction = Relationship.INCOMING)
 	private Set<Character> characters = new HashSet<>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getArtist() {
+		return artist;
+	}
+
+	public void setArtist(String artist) {
+		this.artist = artist;
+	}
+
+	public Binding getBinding() {
+		return binding;
+	}
+
+	public void setBinding(Binding binding) {
+		this.binding = binding;
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	public Date getOnSaleDate() {
+		return onSaleDate;
+	}
+
+	public void setOnSaleDate(Date onSaleDate) {
+		this.onSaleDate = onSaleDate;
+	}
+
+	@Relationship(type = "FEATURED_IN", direction = Relationship.INCOMING)
+	public Set<Character> getCharacters() {
+		return characters;
+	}
+
+	@Relationship(type = "FEATURED_IN", direction = Relationship.INCOMING)
+	public void setCharacters(Set<Character> characters) {
+		this.characters = characters;
+	}
 }

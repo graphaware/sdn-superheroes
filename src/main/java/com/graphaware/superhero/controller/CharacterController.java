@@ -19,7 +19,8 @@ package com.graphaware.superhero.controller;
 import java.util.List;
 
 import com.graphaware.superhero.domain.Character;
-import com.graphaware.superhero.repository.CharacterRepository;
+import com.graphaware.superhero.domain.Hero;
+import com.graphaware.superhero.domain.Villain;
 import com.graphaware.superhero.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,6 +53,15 @@ public class CharacterController {
 		return characterService.searchByKeyword(keyword);
 	}
 
+	@RequestMapping(value = "heroes/search", method = RequestMethod.GET)
+	public List<Hero> searchHeroesByKeyword(@RequestParam(required = true) String keyword) {
+		return characterService.searchHeroesByKeyword(keyword);
+	}
+
+	@RequestMapping(value = "villains/search", method = RequestMethod.GET)
+	public List<Villain> searchVillainsByKeyword(@RequestParam(required = true) String keyword) {
+		return characterService.searchVillainsByKeyword(keyword);
+	}
 
 
 }
