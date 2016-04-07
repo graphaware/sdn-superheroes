@@ -17,8 +17,6 @@
 package com.graphaware.superhero.repository;
 
 import com.graphaware.superhero.domain.Hero;
-import org.springframework.data.neo4j.repository.GraphRepository;
-import org.springframework.data.neo4j.repository.support.GraphRepositoryFactory;
 
 /**
  * @author Luanne Misquitta

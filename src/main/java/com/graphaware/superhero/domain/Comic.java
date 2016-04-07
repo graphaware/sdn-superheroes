@@ -33,8 +33,9 @@ public class Comic {
 	private String title;
 	private String author;
 	private String artist;
-	private Binding binding;
 	private boolean available;
+	private Binding binding;
+
 
 	@DateLong
 	private Date onSaleDate;

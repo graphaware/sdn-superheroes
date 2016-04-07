@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/")
 public class CharacterController {
 
-	@Autowired CharacterService characterService; //TODO add a service
+	@Autowired CharacterService characterService;
 
 	@RequestMapping(value = "characters/{id}", method = RequestMethod.GET)
 	public Character getCharacterById(@PathVariable("id") Long id) {
@@ -62,6 +62,5 @@ public class CharacterController {
 	public List<Villain> searchVillainsByKeyword(@RequestParam(required = true) String keyword) {
 		return characterService.searchVillainsByKeyword(keyword);
 	}
-
 
 }
