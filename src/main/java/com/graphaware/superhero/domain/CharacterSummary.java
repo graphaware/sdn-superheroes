@@ -24,13 +24,27 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 @QueryResult
 public class CharacterSummary {
 
-	private Character character;
+	private Long id;
+	private String name;
 	private int movieCount;
 	private int gameCount;
 	private int comicCount;
 
-	public Character getCharacter() {
-		return character;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getMovieCount() {
@@ -43,10 +57,6 @@ public class CharacterSummary {
 
 	public int getComicCount() {
 		return comicCount;
-	}
-
-	public void setCharacter(Character character) {
-		this.character = character;
 	}
 
 	public void setMovieCount(int movieCount) {

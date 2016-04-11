@@ -82,14 +82,14 @@ public class CharacterIntegrationTest {
 		List<CharacterSummary> results = characterService.searchByKeyword("bat");
 		assertNotNull(results);
 		assertEquals(1, results.size());
-		assertEquals(batman.getName(), results.get(0).getCharacter().getName());
+		assertEquals(batman.getName(), results.get(0).getName());
 
 		results = characterService.searchByKeyword("man");
 		assertNotNull(results);
 		assertEquals(3, results.size());
 		Set<String> resultNames = new HashSet<>();
 		for (CharacterSummary character : results) {
-			resultNames.add(character.getCharacter().getName());
+			resultNames.add(character.getName());
 		}
 		assertTrue(resultNames.contains(superman.getName()));
 		assertTrue(resultNames.contains(batman.getName()));
@@ -105,7 +105,7 @@ public class CharacterIntegrationTest {
 		assertEquals(2, heroes.size());
 		resultNames.clear();
 		for (CharacterSummary character : heroes) {
-			resultNames.add(character.getCharacter().getName());
+			resultNames.add(character.getName());
 		}
 		assertTrue(resultNames.contains(superman.getName()));
 		assertTrue(resultNames.contains(batman.getName()));
@@ -114,7 +114,7 @@ public class CharacterIntegrationTest {
 		List<CharacterSummary> villains = characterService.searchVillainsByKeyword("man");
 		assertNotNull(results);
 		assertEquals(1, villains.size());
-		assertEquals(blackManta.getName(),villains.get(0).getCharacter().getName());
+		assertEquals(blackManta.getName(),villains.get(0).getName());
 	}
 
 	@Test
@@ -141,7 +141,7 @@ public class CharacterIntegrationTest {
 		List<CharacterSummary> results = characterService.searchByKeyword("batman");
 		assertEquals(1, results.size());
 		CharacterSummary batman = results.get(0);
-		assertEquals("Batman", batman.getCharacter().getName());
+		assertEquals("Batman", batman.getName());
 		assertEquals(9, batman.getComicCount());
 		assertEquals(5, batman.getGameCount());
 		assertEquals(6, batman.getMovieCount());

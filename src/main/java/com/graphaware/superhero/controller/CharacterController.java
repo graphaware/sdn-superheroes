@@ -34,32 +34,31 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Luanne Misquitta
  */
 @RestController
-@RequestMapping("/api/")
 public class CharacterController {
 
 	@Autowired CharacterService characterService;
 
-	@RequestMapping(value = "characters/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/characters/{id}", method = RequestMethod.GET)
 	public Character getCharacterById(@PathVariable("id") Long id) {
 		return characterService.getById(id);
 	}
 
-	@RequestMapping(value = "characters/{id}/related", method = RequestMethod.GET)
+	@RequestMapping(value = "/characters/{id}/related", method = RequestMethod.GET)
 	public List<Character> getRelatedCharacters(@PathVariable("id") Long id) {
 		return characterService.findRelatedCharacters(id);
 	}
 
-	@RequestMapping(value = "characters/search", method = RequestMethod.GET)
+	@RequestMapping(value = "/characters/search", method = RequestMethod.GET)
 	public List<CharacterSummary> searchByKeyword(@RequestParam(required = true) String keyword) {
 		return characterService.searchByKeyword(keyword);
 	}
 
-	@RequestMapping(value = "heroes/search", method = RequestMethod.GET)
+	@RequestMapping(value = "/heroes/search", method = RequestMethod.GET)
 	public List<CharacterSummary> searchHeroesByKeyword(@RequestParam(required = true) String keyword) {
 		return characterService.searchHeroesByKeyword(keyword);
 	}
 
-	@RequestMapping(value = "villains/search", method = RequestMethod.GET)
+	@RequestMapping(value = "/villains/search", method = RequestMethod.GET)
 	public List<CharacterSummary> searchVillainsByKeyword(@RequestParam(required = true) String keyword) {
 		return characterService.searchVillainsByKeyword(keyword);
 	}

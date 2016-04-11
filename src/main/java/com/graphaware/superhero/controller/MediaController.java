@@ -26,28 +26,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Luanne Misquitta
  */
-@RequestMapping("/api/")
+@RestController
 public class MediaController {
 
 	@Autowired MovieService movieService;
 	@Autowired GameService gameService;
 	@Autowired ComicService comicService;
 
-	@RequestMapping(value = "movies/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/movies/{id}", method = RequestMethod.GET)
 	public Movie getMovieById(@PathVariable("id") Long id) {
 		return movieService.getById(id);
 	}
 
-	@RequestMapping(value = "comics/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/comics/{id}", method = RequestMethod.GET)
 	public Comic getComicById(@PathVariable("id") Long id) {
 		return comicService.getById(id);
 	}
 
-	@RequestMapping(value = "games/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/games/{id}", method = RequestMethod.GET)
 	public Game getGameById(@PathVariable("id") Long id) {
 		return gameService.getById(id);
 	}
