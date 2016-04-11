@@ -34,10 +34,13 @@ import org.neo4j.ogm.annotation.Relationship;
 public class Character {
 
 	@JsonProperty("id")
-	@GraphId  Long id;
+	@GraphId Long graphId;
+
+	private Long id;
 	private String name;
 	private String alias;
 	private String realName;
+	private String img;
 
 	@Relationship(type = "ALLY_OF", direction = Relationship.UNDIRECTED)
 	Set<Character> allies = new HashSet<>();
@@ -78,6 +81,14 @@ public class Character {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	@Relationship(type = "ALLY_OF", direction = Relationship.UNDIRECTED)

@@ -19,6 +19,7 @@ package com.graphaware.superhero.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
@@ -27,6 +28,8 @@ import org.neo4j.ogm.annotation.Relationship;
  */
 @NodeEntity(label = "Game")
 public class Game {
+
+	@GraphId private Long graphId;
 	private Long id;
 	private String title;
 	private int year;

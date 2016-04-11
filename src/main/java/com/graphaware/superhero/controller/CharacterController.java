@@ -19,6 +19,7 @@ package com.graphaware.superhero.controller;
 import java.util.List;
 
 import com.graphaware.superhero.domain.Character;
+import com.graphaware.superhero.domain.CharacterSummary;
 import com.graphaware.superhero.domain.Hero;
 import com.graphaware.superhero.domain.Villain;
 import com.graphaware.superhero.service.CharacterService;
@@ -40,7 +41,7 @@ public class CharacterController {
 
 	@RequestMapping(value = "characters/{id}", method = RequestMethod.GET)
 	public Character getCharacterById(@PathVariable("id") Long id) {
-		return characterService.getById(id, 1);
+		return characterService.getById(id);
 	}
 
 	@RequestMapping(value = "characters/{id}/related", method = RequestMethod.GET)
@@ -49,17 +50,17 @@ public class CharacterController {
 	}
 
 	@RequestMapping(value = "characters/search", method = RequestMethod.GET)
-	public List<Character> searchByKeyword( @RequestParam(required = true) String keyword) {
+	public List<CharacterSummary> searchByKeyword(@RequestParam(required = true) String keyword) {
 		return characterService.searchByKeyword(keyword);
 	}
 
 	@RequestMapping(value = "heroes/search", method = RequestMethod.GET)
-	public List<Hero> searchHeroesByKeyword(@RequestParam(required = true) String keyword) {
+	public List<CharacterSummary> searchHeroesByKeyword(@RequestParam(required = true) String keyword) {
 		return characterService.searchHeroesByKeyword(keyword);
 	}
 
 	@RequestMapping(value = "villains/search", method = RequestMethod.GET)
-	public List<Villain> searchVillainsByKeyword(@RequestParam(required = true) String keyword) {
+	public List<CharacterSummary> searchVillainsByKeyword(@RequestParam(required = true) String keyword) {
 		return characterService.searchVillainsByKeyword(keyword);
 	}
 

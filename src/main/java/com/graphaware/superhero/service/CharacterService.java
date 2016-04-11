@@ -16,11 +16,11 @@
 
 package com.graphaware.superhero.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.graphaware.superhero.domain.Character;
-import com.graphaware.superhero.domain.Hero;
-import com.graphaware.superhero.domain.Villain;
+import com.graphaware.superhero.domain.CharacterSummary;
 import com.graphaware.superhero.repository.CharacterRepository;
 import com.graphaware.superhero.repository.HeroRepository;
 import com.graphaware.superhero.repository.VillainRepository;
@@ -37,23 +37,41 @@ public class CharacterService {
 	@Autowired HeroRepository heroRepository;
 	@Autowired VillainRepository villainRepository;
 
-	public List<Character> searchByKeyword(String keyword) {
-		List<Character> characters = characterRepository.findByNameLike("*" + keyword + "*");
-		return characters;
+	public List<CharacterSummary> searchByKeyword(String keyword) {
+		List<Character> characters = characterRepository.findByNameLike(getKeywordParam(keyword));
+		return summarizeCharacter(characters);
 	}
 
-	public List<Hero> searchHeroesByKeyword(String keyword) {
-		return heroRepository.findByNameLike("*" + keyword + "*");
+	public List<CharacterSummary> searchHeroesByKeyword(String keyword) {
+		return summarizeCharacter(heroRepository.findByNameLike(getKeywordParam(keyword)));
 	}
 
-	public List<Villain> searchVillainsByKeyword(String keyword) {
-		return villainRepository.findByNameLike("*" + keyword + "*");
+	public List<CharacterSummary> searchVillainsByKeyword(String keyword) {
+		return summarizeCharacter(villainRepository.findByNameLike(getKeywordParam(keyword)));
 	}
-	public Character getById(Long id, int depth) {
-		return characterRepository.findOne(id, depth);
+	public Character getById(Long id) {
+		return characterRepository.findById(id);
 	}
 
 	public List<Character> findRelatedCharacters(Long id) {
 		return characterRepository.findRelatedCharacters(id);
+	}
+
+	private List<CharacterSummary> summarizeCharacter(List characters) {
+		List<CharacterSummary> summaries = new ArrayList<>(characters.size());
+		for (Object o : characters) {
+			Character character = (Character) o;
+			CharacterSummary summary = new CharacterSummary();
+			summary.setCharacter(character);
+			summary.setComicCount(character.getComicsFeaturedIn().size());
+			summary.setGameCount(character.getGamesFeaturedIn().size());
+			summary.setMovieCount(character.getRoles().size());
+			summaries.add(summary);
+		}
+		return  summaries;
+	}
+
+	private String getKeywordParam(String keyword) {
+		return "*" + keyword + "*";
 	}
 }

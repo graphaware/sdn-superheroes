@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.typeconversion.DateLong;
@@ -29,6 +30,8 @@ import org.neo4j.ogm.annotation.typeconversion.DateLong;
  */
 @NodeEntity(label = "Comic")
 public class Comic {
+
+	@GraphId private Long graphId;
 	private Long id;
 	private String title;
 	private String author;

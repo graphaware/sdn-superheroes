@@ -31,7 +31,8 @@ import org.neo4j.ogm.annotation.typeconversion.Convert;
 @NodeEntity(label = "Movie")
 public class Movie {
 
-	@GraphId private Long id;
+	@GraphId private Long graphId;
+	private Long id;
 	private String title;
 	private int year;
 	private Rating rating;

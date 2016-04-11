@@ -28,6 +28,8 @@ import org.springframework.data.repository.query.Param;
  */
 public interface CharacterRepository<T extends Character> extends GraphRepository<T> {
 
+	T findById(Long id);
+
 	List<T> findByNameLike(String keyword);
 
 	@Query(" MATCH (c:Character) WHERE ID(c)={characterId} " +

@@ -25,16 +25,20 @@ import java.util.List;
 import java.util.Set;
 
 import com.graphaware.superhero.domain.Character;
+import com.graphaware.superhero.domain.CharacterSummary;
 import com.graphaware.superhero.domain.Hero;
 import com.graphaware.superhero.domain.Villain;
 import com.graphaware.superhero.repository.CharacterRepository;
 import com.graphaware.superhero.repository.HeroRepository;
 import com.graphaware.superhero.repository.VillainRepository;
+import com.graphaware.superhero.service.CharacterService;
 import com.graphaware.superhero.test.context.TestContext;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.ogm.session.Session;
+import org.neo4j.ogm.session.Utils;
+import org.neo4j.ogm.testutil.TestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -51,17 +55,8 @@ public class CharacterIntegrationTest {
 	@Autowired CharacterRepository characterRepository;
 	@Autowired VillainRepository villainRepository;
 	@Autowired HeroRepository heroRepository;
+	@Autowired CharacterService characterService;
 	@Autowired Session session;
-
-
-	/*
-	Search for characters
-	Save a character
-	Save a team
-	Save a movie
-	Save a game
-	Save a comic
-	 */
 
 	@After
 	public void tearDown() {
@@ -84,43 +79,75 @@ public class CharacterIntegrationTest {
 
 		session.clear();
 
-		List<Character> results = characterRepository.findByNameLike("*bat*");
+		List<CharacterSummary> results = characterService.searchByKeyword("bat");
 		assertNotNull(results);
 		assertEquals(1, results.size());
-		assertEquals(batman.getName(), results.get(0).getName());
+		assertEquals(batman.getName(), results.get(0).getCharacter().getName());
 
-		results = characterRepository.findByNameLike("*man*");
+		results = characterService.searchByKeyword("man");
 		assertNotNull(results);
 		assertEquals(3, results.size());
 		Set<String> resultNames = new HashSet<>();
-		for (Character character : results) {
-			resultNames.add(character.getName());
+		for (CharacterSummary character : results) {
+			resultNames.add(character.getCharacter().getName());
 		}
 		assertTrue(resultNames.contains(superman.getName()));
 		assertTrue(resultNames.contains(batman.getName()));
 		assertTrue(resultNames.contains(blackManta.getName()));
 
-		results = characterRepository.findByNameLike("*cat*");
+		results = characterService.searchByKeyword("cat");
 		assertNotNull(results);
 		assertEquals(0, results.size());
 
 		//Search for superheroes
-		List<Hero> heroes = heroRepository.findByNameLike("*man*");
+		List<CharacterSummary> heroes = characterService.searchHeroesByKeyword("man");
 		assertNotNull(heroes);
 		assertEquals(2, heroes.size());
 		resultNames.clear();
-		for (Character character : heroes) {
-			resultNames.add(character.getName());
+		for (CharacterSummary character : heroes) {
+			resultNames.add(character.getCharacter().getName());
 		}
 		assertTrue(resultNames.contains(superman.getName()));
 		assertTrue(resultNames.contains(batman.getName()));
 
 		//Search for villains
-		List<Villain> villains = villainRepository.findByNameLike("*man*");
+		List<CharacterSummary> villains = characterService.searchVillainsByKeyword("man");
 		assertNotNull(results);
 		assertEquals(1, villains.size());
-		assertEquals(blackManta.getName(),villains.get(0).getName());
+		assertEquals(blackManta.getName(),villains.get(0).getCharacter().getName());
 	}
+
+	@Test
+	public void shouldLoadCharacterRelationships() {
+		session.query(TestUtils.readCQLFile("graphdata.cyp").toString(), Utils.map());
+		session.clear();
+
+		Character character = characterService.getById(7l);
+		assertNotNull(character);
+		assertEquals("Black Manta", character.getName());
+		assertEquals(1, character.getEnemies().size());
+		assertEquals("Aquaman", character.getEnemies().iterator().next().getName());
+		assertEquals(0, character.getAllies().size());
+		assertEquals(2, character.getComicsFeaturedIn().size());
+		assertEquals(1, character.getGamesFeaturedIn().size());
+		assertEquals(0, character.getRoles().size());
+	}
+
+	@Test
+	public void searchShouldReturnCharacterSummary() {
+		session.query(TestUtils.readCQLFile("graphdata.cyp").toString(), Utils.map());
+		session.clear();
+
+		List<CharacterSummary> results = characterService.searchByKeyword("batman");
+		assertEquals(1, results.size());
+		CharacterSummary batman = results.get(0);
+		assertEquals("Batman", batman.getCharacter().getName());
+		assertEquals(9, batman.getComicCount());
+		assertEquals(5, batman.getGameCount());
+		assertEquals(6, batman.getMovieCount());
+	}
+
+
 
 
 }
