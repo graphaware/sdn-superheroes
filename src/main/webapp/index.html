@@ -16,47 +16,43 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+
+<body class="hp">
 
 <div class="container">
-<div class="row">
-<div class="col-xs-12 text-center">
-<h1>Superhero search</h1>
-</div>
+	<div class="col-xs-12 text-center">
+		<a href="/"><h1>Superhero Graph Search</h1></a>
+	</div>
+
+	<form method="get" action="index.html">
+		<input type="hidden" name="hero-type">
+		<div class="col-xs-12 input-holder">
+			<div class="input-group input-group-lg">
+				<input id="search-text" name="q" type="text" class="form-control" aria-label="Text input with segmented button dropdown" placeholder="Search...">
+				<div class="input-group-btn">
+
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li><a href="#">All</a></li>
+						<li><a href="#">Heroes</a></li>
+						<li><a href="#">Villains</a></li>
+					</ul>
+					<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				</div>
+			</div>
+		</div>
+	</form>
+
 </div>
 
-<div class="row">
-<div class="col-md-12 input-holder">
-<div class="input-group" id="adv-search">
-<input type="text" class="form-control text-center" placeholder="Search Superheroes" />
-<div class="input-group-btn">
-<div class="btn-group" role="group">
-<div class="dropdown dropdown-lg">
-<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-<div class="dropdown-menu dropdown-menu-right" role="menu">
-<form class="form-horizontal" role="form">
-<div class="form-group">
-<label for="filter">Filter by Superhero category</label>
-<select class="form-control">
-	<option value="0" selected>All</option>
-	<option value="1">Heroes</option>
-	<option value="2">Villains</option>
-</select>
+<!-- Results start here -->
+<div id="search-results" class="container">
+	<div class="col-xs-12">
+	</div>
 </div>
+<!-- End results -->
 
-<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-</form>
-</div>
-</div>
-<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-	
-<div class="footer container">
+<div class="footer">
 
 <div class="col-xs-12 text-center">
 <small>Search powered by GraphAware</small>
@@ -69,5 +65,18 @@
 
 <!-- Include all compiled plugins (below), or include individual files as needed --> 
 <script src="js/bootstrap.js"></script>
+<script src="js/jquery.loadTemplate-1.5.7.min.js"></script>
+<script src="js/search.js"></script>
+
+<script>
+	$(function() {
+		var q = getParameterByName('q', window.location.href);
+		var heroType = getParameterByName('hero-type', window.location.href);
+		if (q!=null) {
+			$('#search-text').val(q);
+			doSearch(q, heroType);			
+		}
+	});
+</script>
 </body>
 </html>

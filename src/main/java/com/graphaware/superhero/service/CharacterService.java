@@ -64,6 +64,8 @@ public class CharacterService {
 			CharacterSummary summary = new CharacterSummary();
 			summary.setId(character.getId());
 			summary.setName(character.getName());
+			summary.setAlias(character.getAlias());
+			summary.setImg(character.getImg());
 			summary.setComicCount(character.getComicsFeaturedIn().size());
 			summary.setGameCount(character.getGamesFeaturedIn().size());
 			summary.setMovieCount(character.getRoles().size());

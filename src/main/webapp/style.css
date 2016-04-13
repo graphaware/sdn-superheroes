@@ -1,3 +1,6 @@
+html, body {
+	min-height: 100%;
+}
 @font-face {
     font-family: 'obelixproregular';
     src: url('fonts/obelixpro-cyr-webfont.eot');
@@ -10,51 +13,97 @@
     font-style: normal;
 
 }
-
-h1 {
+a:hover {
+	text-decoration: none;
+}
+body {
+    padding-top: 100px;
+	background: url('images/bg.jpg') no-repeat center center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+.container {
+	max-width: 540px;
+}
+h1, .results h4, .details h2, .details h3 {
 	font-family: 'obelixproregular';
-	color: #35A0CE;
+	color: #92278F;
+}
+h1 {
 	font-size: 24px;
 }
-
-body {
-    padding-top: 150px;
+h2 {
+	font-size: 20px;
 }
-.dropdown.dropdown-lg .dropdown-menu {
-    margin-top: -1px;
-    padding: 6px 20px;
+.panel {
+	border: 1px solid #ccc;
+	box-shadow: none;
 }
-.input-group-btn .btn-group {
-    display: flex !important;
+.panel h2, .panel h3 {
+	margin: 0;
 }
-.btn-group .btn {
-    border-radius: 0;
-    margin-left: -1px;
+.details h3 {
+	font-size: 16px;
 }
-.btn-group .btn:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+.input-group .dropdown-toggle {
+	border-top-right-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
 }
-.btn-group .form-horizontal .btn[type="submit"] {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-.form-horizontal .form-group {
-    margin-left: 0;
-    margin-right: 0;
-}
-.form-group .form-control:last-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+.input-group-lg .btn .glyphicon {
+	margin-top: 2px;
 }
 .input-holder {
-	margin-top: 10px;
-	margin-bottom: 40px;
+	margin: 20px 0;
+}
+.badge {
+	background-color: #5bc0de;
+}
+.panel-body .thumb {
+	width: 100px;
+	height: 70px;
+	background: whitesmoke;
+	float: left;
+	margin-right: 15px;
+	margin-top: -15px;
+	margin-left: -15px;
+	margin-bottom: -15px;
+}
+.panel-body p {
+	margin: 0;
+}
+.profilepic {
+	background: whitesmoke;
+	min-height: 120px;
+}
+.results {
+	margin-top: 40px;
+}
+.results h4 {
+	font-size: 14px;
+	line-height: 18px;
+}
+.media {
+	margin-bottom: 20px;
+}
+.media img {
+	width: 120px;
+	margin-right: 10px;
+}
+img.profile {
+	width: 170px;
+	border-radius:100%;
+}
+ul.list-group {
+	margin-bottom: 0;
+}
+.btn-primary {
+	background: #35A0CE;
 }
 .footer {
-	padding: 50px 0 20px 0;
+	padding: 50px 0 50px 0;
 	background: url('images/icon-graphaware-color.svg') no-repeat center top;
 	background-size: 40px auto;
+	margin-top: 100px;
 }
 @media screen and (min-width: 768px) {
     #adv-search {
@@ -70,7 +119,7 @@ body {
 }
 
 @media screen and (min-height: 400px) {
-	.footer {
+	.hp .footer {
 		position: fixed;
 		bottom: 0;
 		left: 0;

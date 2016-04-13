@@ -26,6 +26,8 @@ public class CharacterSummary {
 
 	private Long id;
 	private String name;
+	private String alias;
+	private String img;
 	private int movieCount;
 	private int gameCount;
 	private int comicCount;
@@ -69,5 +71,21 @@ public class CharacterSummary {
 
 	public void setComicCount(int comicCount) {
 		this.comicCount = comicCount;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 }
