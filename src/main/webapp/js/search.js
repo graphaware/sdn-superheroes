@@ -33,7 +33,7 @@
 				detailUrl: '/detail.html?id='+character.id,
 				imageUrl: '/'+character.img,
 				aliases: character.alias,
-				style: "background: whitesmoke url('/"+character.img+"') no-repeat center top; background-size: cover;"
+				style: "background: whitesmoke url('/"+character.img+"') no-repeat center center; background-size: cover;"
 			}
 		});
 

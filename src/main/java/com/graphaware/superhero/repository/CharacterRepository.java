@@ -32,7 +32,7 @@ public interface CharacterRepository<T extends Character> extends GraphRepositor
 
 	List<T> findByNameLike(String keyword);
 
-	@Query(" MATCH (c:Character) WHERE ID(c)={characterId} " +
+	@Query(" MATCH (c:Character {id: {characterId}}) " +
 			"OPTIONAL MATCH (c)-[:ALLY_OF|ENEMY_OF]-(other) " +
 			"WITH c, collect(other) as others " +
 			"OPTIONAL MATCH (c)-[:MEMBER_OF|FEATURED_IN]->()<-[:MEMBER_OF|FEATURED_IN]-(teamMember) " +

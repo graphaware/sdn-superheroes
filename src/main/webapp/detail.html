@@ -46,51 +46,59 @@
 <div class="col-xs-12">
 
 <div class="panel panel-default">
-<div id="profile-pic" class="panel-heading profilepic" style="background: no-repeat center top; background-size: cover;"></div>
+  <div id="profile-pic" class="panel-heading profilepic">
+    <img src="" alt="..." class="img-thumbnail center-block">
+  </div>
   <div class="panel-body">
   	<h2 class="text-center" id="name"></h2>
   </div>
   
   <ul class="list-group">
+  
     <li class="list-group-item">
-      <b>Bio</b><br>
       <span id="bio">
+        <b>Alias</b>: Dark Knight<br>
+        <b>Real name</b>: Bruce Wayne<br>
+        <b>Teams:</b> Justice League
       </span>
-      
-      <div id="allies" hidden>
-        <b>Allies</b>
-        <span class="row">
-        </span>
-      </div>
-      <div id="enemies" hidden>
-        <b>Enemies</b>
-        <span class="row">
-        </span>
-      </div>
     </li>
-    <a href="#collapseMovies" data-toggle="collapse"><li class="list-group-item"><b>Movies</b> <span class="badge label-info" id="movies-count"</span></li></a>
+	  
+    <li class="list-group-item">
+	  <div class="row">
+	    <div class="col-xs-6" id="allies">
+	      <b>Allies</b><br>
+          <span></span>
+        </div>
+	  
+	    <div class="col-xs-6" id="enemies">
+	      <b>Enemies</b><br>
+          <span></span>
+	    </div>
+	  </div>
+	 
+    </li>
+	
+    <a href="#collapseMovies" data-toggle="collapse"><li class="list-group-item"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><b>Movies</b> <span class="badge label-info" id="movies-count"></span></li></a>
 	<div class="collapse" id="collapseMovies">
-	<ul class="list-group" id="movies">
-	</ul>
+	<ul class="list-group" id="movies"></ul>
 	</div>
-    <a href="#collapseGames" data-toggle="collapse"><li class="list-group-item"><b>Games</b> <span class="badge" id="games-count"></span></li></a>
+    <a href="#collapseGames" data-toggle="collapse"><li class="list-group-item"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span><b>Games</b> <span class="badge" id="games-count"></span></li></a>
 	<div class="collapse" id="collapseGames">
-	<ul class="list-group" id="games">
-	</ul>
+	<ul class="list-group" id="games"></ul>
 	</div>
-    <a href="#collapseBooks" data-toggle="collapse"><li class="list-group-item"><b>Comics</b> <span class="badge" id="comics-count"></span></li></a>
+    <a href="#collapseBooks" data-toggle="collapse"><li class="list-group-item"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><b>Comics</b> <span class="badge" id="comics-count"></span></li></a>
 	<div class="collapse" id="collapseBooks">
-	<ul class="list-group" id="comics">
-	</ul>
+	<ul class="list-group" id="comics"></ul>
 	</div>
   </ul>
   
 </div>
 
 <h3 class="text-center">Related heroes</h3>
+
+<a href="detail.html">
 <div id="related-heroes">
 </div>
-
 
 </div>
 
@@ -99,7 +107,7 @@
 <div class="footer">
 
 <div class="col-xs-12 text-center">
-<small>Search powered by GraphAware</small>
+<small>Created by GraphAware. Powered by Spring Data Neo4j 4.1</small>
 </div>
 
 </div>
@@ -123,6 +131,7 @@
 
 <!-- Include all compiled plugins (below), or include individual files as needed --> 
 <script src="js/bootstrap.js"></script>
+<script src="js/scripts.js"></script>
 
 <script src="js/jquery.loadTemplate-1.5.7.min.js"></script>
 <script src="js/JSOG.js"></script>
@@ -141,7 +150,7 @@
     //console.log(cyclicGraph);
 
     $('#name').text(data.name);
-    $('#profile-pic').css('background', 'whitesmoke url("/'+data.img+'") no-repeat center top');
+    $('#profile-pic img').attr('src', '/'+data.img);
 
     var bio = '';
 
@@ -170,7 +179,7 @@
         id: character.id,
         detailUrl: '/detail.html?id='+character.id,
         imageUrl: '/'+character.img,
-        style: "background: whitesmoke url('/"+character.img+"') no-repeat center top; background-size: cover;"
+        style: "background: url('/"+character.img+"') no-repeat center center; background-size: cover;"
       }
     });
     if (allies.length) {
@@ -185,13 +194,14 @@
         id: character.id,
         detailUrl: '/detail.html?id='+character.id,
         imageUrl: '/'+character.img,
-        style: "background: whitesmoke url('/"+character.img+"') no-repeat center top; background-size: cover;"
+        style: "background: url('/"+character.img+"') no-repeat center center; background-size: cover;"
       }
     });
     if (enemies.length) {
       $('#enemies').show();
       $('#enemies span').loadTemplate($('#thumbnail-template'), enemies);
     }
+    $('[data-toggle="tooltip"]').tooltip()
 
     //initialize modal triggers
     $('li[name="list-item"]').on('click', 'a', function() {
@@ -228,11 +238,30 @@
 
   }
 
+  function initCap(str1) {
+    return str1.toLowerCase().replace(/(?:^|\s)[a-z]/g, function (m) {
+        return m.toUpperCase();
+     });
+  }
+
   $(function() {
     $.addTemplateFormatter({
       dateFormatter : function(value) {
           return new Date(value).toDateString();
+        },
+      readableString: function(value) {
+        var str;
+
+        if (Array.isArray(value)) {
+            str = value.join(', ');
+            str = initCap(str); //hacky - only platforms have arrays so we add the initCap here
         }
+        else {
+            str = value;
+        }
+
+        return str.replace(/_/g, ' ');
+      }
     });
 
     $.ajax({
@@ -243,7 +272,7 @@
       fetchRelated(data.id);
     });
 
-    
+
   });
 
 </script>
@@ -252,24 +281,23 @@
   <li class="list-group-item" name="list-item">
     <a href="" data-toggle="modal" data-content="movie.title">Title</a>
     <span hidden>
-      <strong>Year:</strong> <span data-content="movie.year"></span><br/>  
+      <strong>Year:</strong> <span data-content="movie.year"></span><br/>
       <strong>Actor:</strong> <span data-content="actor"></span><br/>
-      <strong>Rating:</strong> <span data-content="movie.rating"></span><br/>
+      <strong>Rating:</strong> <span data-content="movie.rating" data-format="readableString"></span><br/>
       <br/>
       <a href="" data-href="movie.imdbUrl">Read more at IMDb</a>
     </span>
   </li>
-  
 </script>
 
 <script type="text/html" id="games-list-item-template">
   <li class="list-group-item" name="list-item">
     <a href="" data-toggle="modal" data-content="title">Title</a>
     <span hidden>
-      <strong>Year:</strong> <span data-content="year"></span><br/>  
+      <strong>Year:</strong> <span data-content="year"></span><br/>
       <strong>Publisher:</strong> <span data-content="publisher"></span><br/>
-      <strong>Rating:</strong> <span data-content="rating"></span><br/>
-      <strong>Platforms:</strong> <span data-content="platforms"></span><br/>
+      <strong>Rating:</strong> <span data-content="rating" data-format="readableString"></span><br/>
+      <strong>Platforms:</strong> <span data-content="platforms" data-format="readableString"></span><br/>
     </span>
   </li>
 </script>
@@ -287,12 +315,13 @@
 </script>
 
 <script type="text/html" id="thumbnail-template">
-  <div class="col-xs-6 col-md-3">
-    <a class="thumbnail" href="detail.html" data-href="detailUrl">
-          <img src="" data-src="imageUrl" 
-            data-template-bind='[{"attribute":"title", "value":"name"}]'/>
-    </a>
-  </div>
+
+  <a href="detail.html" data-href="detailUrl"
+     class="ally col-xs-3" data-toggle="tooltip" data-placement="bottom"
+     title="Batman"
+     style="background: no-repeat center center; background-size: cover;"
+     data-template-bind='[{"attribute":"title", "value":"name"}, {"attribute":"style", "value":"style"}]'>
+  </a>
 </script>
 
 </body>

@@ -47,15 +47,19 @@
 
 <!-- Results start here -->
 <div id="search-results" class="container">
-	<div class="col-xs-12">
-	</div>
+<div class="col-xs-12">
+</div>
+
+
 </div>
 <!-- End results -->
 
+
+	
 <div class="footer">
 
 <div class="col-xs-12 text-center">
-<small>Search powered by GraphAware</small>
+<small>Created by GraphAware. Powered by Spring Data Neo4j 4.1</small>
 </div>
 
 </div>
@@ -74,7 +78,7 @@
 		var heroType = getParameterByName('hero-type', window.location.href);
 		if (q!=null) {
 			$('#search-text').val(q);
-			doSearch(q, heroType);			
+			doSearch(q, heroType);
 		}
 	});
 </script>

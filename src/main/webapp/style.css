@@ -55,6 +55,9 @@ h2 {
 .input-holder {
 	margin: 20px 0;
 }
+.list-group-item .glyphicon {
+	margin-right: 6px;
+}
 .badge {
 	background-color: #5bc0de;
 }
@@ -72,8 +75,17 @@ h2 {
 	margin: 0;
 }
 .profilepic {
-	background: whitesmoke;
+	background: url('images/bg-profile.jpg') no-repeat center center;
+	background-size: cover;
 	min-height: 120px;
+	position: relative;
+}
+.profilepic .blur {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 .results {
 	margin-top: 40px;
@@ -89,6 +101,11 @@ h2 {
 	width: 120px;
 	margin-right: 10px;
 }
+.ally, .enemy {
+	background: whitesmoke;
+	height: 40px;
+	border-right: 4px solid white;
+}
 img.profile {
 	width: 170px;
 	border-radius:100%;
@@ -103,7 +120,7 @@ ul.list-group {
 	padding: 50px 0 50px 0;
 	background: url('images/icon-graphaware-color.svg') no-repeat center top;
 	background-size: 40px auto;
-	margin-top: 100px;
+	margin-top: 80px;
 }
 @media screen and (min-width: 768px) {
     #adv-search {
