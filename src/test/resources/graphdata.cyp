@@ -40,7 +40,7 @@ create (_38:`Movie` {`id`:38, `imdbUrl`:"http://www.imdb.com/title/tt2975590/", 
 create (_39:`Movie` {`id`:39, `imdbUrl`:"http://www.imdb.com/title/tt4870838", `rating`:"PG_13", `title`:"Batman: Bad Blood", `year`:2016})
 create (_40:`Movie` {`id`:40, `imdbUrl`:"http://www.imdb.com/title/tt5091548", `rating`:"PG_13", `title`:"Justice League vs Teen Titans", `year`:2016})
 create (_41:`Movie` {`id`:41, `imdbUrl`:"http://www.imdb.com/title/tt0770828", `rating`:"PG_13", `title`:"Man of Steel", `year`:2013})
-create (_42:`Movie` {`id`:42, `imdbUrl`:"http://www.imdb.com/title/tt0468569", `rating`:"PG_13", `title`:"The Dark Night", `year`:2008})
+create (_42:`Movie` {`id`:42, `imdbUrl`:"http://www.imdb.com/title/tt0468569", `rating`:"PG_13", `title`:"The Dark Knight", `year`:2008})
 create (_43:`Movie` {`id`:43, `imdbUrl`:"http://www.imdb.com/title/tt0096895/", `rating`:"PG_13", `title`:"Batman", `year`:1989})
 create (_44:`Movie` {`id`:44, `imdbUrl`:"http://www.imdb.com/title/tt3878542", `rating`:"PG_13", `title`:"Justice League: Throne of Atlantis", `year`:2015})
 create _0-[:`ALLY_OF`]->_5
